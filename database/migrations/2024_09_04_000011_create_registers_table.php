@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('registers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users');
-            // $table->foreignId('vehicle_id')->constrained('vehicles');
+            $table->foreignId('vehicle_id')->constrained('vehicles');
             $table->string('user_code')->nullable();
             $table->boolean('have_permission');
             $table->string('action_performed');
