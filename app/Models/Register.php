@@ -32,8 +32,12 @@ class Register extends Model
         'updated_at' => 'datetime',
     ];
 
-    public function register()
+    public function RegisterUser()
     {
-        return $this->hasMany(City::class, 'id', 'city_id');
-    }    
+        return $this->hasOne(User::class, 'id', 'user_id');
+    } 
+    public function RegisterVehicle()
+    {
+        return $this->hasOne(Vehicle::class, 'id', 'vehicle_id');
+    } 
 }

@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaymentHistory extends Model
+class Permission extends Model
 {
     use HasFactory;
-
-    protected $table = "payments_history";
 
     /**
      * The attributes that are mass assignable.
@@ -17,18 +15,11 @@ class PaymentHistory extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'payment_id',
-        'mount_pay',
-        'plate',
-        'payment_status',
-        'registration_date',
+        'name',
+        'description_permission',
     ];
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
-    public function PaymentHistory()
-    {
-        return $this->hasOne(City::class, 'id', 'payment_id');
-    }    
 }

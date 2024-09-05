@@ -14,7 +14,7 @@ class City extends Model
      *
      * @var array<int, string>
      */
-
+    
     protected $fillable = [
         'departament_id',
         'city_name',

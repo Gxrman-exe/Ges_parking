@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\VehicleClient;
+use App\Models\Permission;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class VehicleClientSeeder extends Seeder
+class PermissionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        VehicleClient::factory()->count(5)->create();
+        Permission::factory()->count(100)->create();
     }
 }

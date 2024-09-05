@@ -13,6 +13,6 @@ class DepartamentSeeder extends Seeder
      */
     public function run(): void
     {
-        Departament::factory()->count(5)->create();
+        Departament::factory()->count(100)->create();
     }
 }

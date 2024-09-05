@@ -13,6 +13,6 @@ class PaymentHistorySeeder extends Seeder
      */
     public function run(): void
     {
-        PaymentHistory::factory()->count(5)->create();
+        PaymentHistory::factory()->count(100)->create();
     }
 }

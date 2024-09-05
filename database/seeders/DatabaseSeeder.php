@@ -15,6 +15,23 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->count(15)->create();
+        User::factory()->count(100)->create();
+        $this->call([
+            CountrySeeder::class,
+            DepartamentSeeder::class,
+            CitySeeder::class,
+            LocalSeeder::class,
+            ClientSeeder::class,
+            VehicleSeeder::class,
+            PaymentMethodSeeder::class,
+            SpecialRateSeeder::class,
+            RateTypeSeeder::class,
+            PaymentSeeder::class,
+            PaymentHistorySeeder::class,
+            RegisterSeeder::class,
+            RoleSeeder::class,
+            PermissionSeeder::class,
+            RolePermissionSeeder::class,
+        ]);
     }
 }

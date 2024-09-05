@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('payment_id')->constrained('payments');
             $table->decimal('mount_pay', 10, 2);
             $table->string('plate'); 
-            $table->enum('payment_status', ['pending', 'processed', 'canceled']);
+            $table->string('payment_status', 20);
             $table->date('registration_date');
             $table->timestamps();
         });

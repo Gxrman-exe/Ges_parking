@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Local;
+use App\Models\Role;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class LocalSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Local::factory()->count(100)->create();
+        Role::factory()->count(100)->create();
     }
 }

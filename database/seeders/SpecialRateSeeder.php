@@ -13,6 +13,6 @@ class SpecialRateSeeder extends Seeder
      */
     public function run(): void
     {
-        SpecialRate::factory()->count(5)->create();
+        SpecialRate::factory()->count(100)->create();
     }
 }

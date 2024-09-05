@@ -13,6 +13,6 @@ class RateTypeSeeder extends Seeder
      */
     public function run(): void
     {
-        RateType::factory()->count(5)->create();
+        RateType::factory()->count(100)->create();
     }
 }
