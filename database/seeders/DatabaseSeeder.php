@@ -13,25 +13,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->count(100)->create();
         $this->call([
+
             CountrySeeder::class,
             DepartamentSeeder::class,
             CitySeeder::class,
             LocalSeeder::class,
             ClientSeeder::class,
             VehicleSeeder::class,
+
+            RateTypeSeeder::class,
             PaymentMethodSeeder::class,
             SpecialRateSeeder::class,
-            RateTypeSeeder::class,
             PaymentSeeder::class,
             PaymentHistorySeeder::class,
-            RegisterSeeder::class,
+
             RoleSeeder::class,
             PermissionSeeder::class,
             RolePermissionSeeder::class,
+            UserSeeder::class,
+            RegisterSeeder::class,
         ]);
     }
 }
