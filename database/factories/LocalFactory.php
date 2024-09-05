@@ -26,7 +26,7 @@ class LocalFactory extends Factory
             'active' => $this->faker->boolean,
             'iva_enabled' => $this->faker->boolean,
             'iva_percentage' => $this->faker->randomFloat(2, 0, 99.99),
-            'local_code' => $this->faker->word,
+            'local_code' => $this->faker->unique()->word,
             'rate_time' => $this->faker->randomFloat(2, 0, 24), 
             'license_type' => $this->faker->word,
             'license' => $this->faker->word,
