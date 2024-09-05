@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('rate_type_id')->constrained('rate_types'); // Asumiendo que la tabla relacionada se llama 'rate_types'
             $table->decimal('discount', 5, 2);
-            $table->text('comment')->nullable();
+            $table->text('comment', 250)->nullable();
             $table->timestamps();
         });
     }

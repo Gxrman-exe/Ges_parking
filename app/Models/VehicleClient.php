@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Vehicle extends Model
+class VehicleClient extends Model
 {
     use HasFactory;
 
@@ -15,30 +15,20 @@ class Vehicle extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'local_id',
+        'vehicle_id',
         'client_id',
-        'plate',
-        'vehicle_type',
-        'locker_use',
-        'additional_value_locker',
-        'helmet_use',
-        'additional_value_case',
-        'vehicle_status',
     ];
-
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
     ];
 
-    public function Local()
+    public function vehicle()
     {
-        return $this->hasMany(Local::class,'id','local_id');
+        return $this->morphMany(Vehicle::class, 'id', 'vehicle_id');
     }
-    
-    public function Vehicle()
+    public function client()
     {
-        return $this->belongsToMany(Client::class, 'id', 'client_id',);
+        return $this->morphMany(Client::class, 'id', 'client_id');
     }
-    
 }

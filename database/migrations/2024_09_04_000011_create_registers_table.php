@@ -15,11 +15,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('vehicle_id')->constrained('vehicles');
-            $table->string('user_code')->nullable();
-            $table->boolean('have_permission');
+            $table->string('user_code', 20)->nullable();
+            $table->boolean('have_permission', );
             $table->string('action_performed');
             $table->date('date');
-            $table->string('module_code')->nullable();
+            $table->string('module_code', 20)->nullable();
             $table->timestamp('date_time_admission')->nullable();
             $table->timestamp('date_time_exit')->nullable(); 
             $table->text('comment')->nullable();

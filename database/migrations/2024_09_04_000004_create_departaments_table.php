@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('departaments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('country_id')->constrained('countries');
-            $table->string('departament_name');
-            $table->string('departament_code')->unique();
+            $table->string('departament_name', 50);
+            $table->string('departament_code', 50)->unique();
             $table->timestamps();
         });
     }

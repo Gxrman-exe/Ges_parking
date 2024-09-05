@@ -16,12 +16,12 @@ return new class extends Migration
             $table->foreignId('local_id')->constrained('locals');
             $table->foreignId('client_id')->constrained('clients')->nullable();
             $table->string('plate', 6)->unique();
-            $table->string('vehicle_type');
+            $table->string('vehicle_type', 30);
             $table->boolean('locker_use');
             $table->decimal('additional_value_locker', 8, 2)->nullable();
             $table->boolean('helmet_use'); 
             $table->decimal('additional_value_case', 8, 2)->nullable();
-            $table->enum('vehicle_status', ['parked', 'removed']);
+            $table->string('vehicle_status');
             $table->timestamps();
         });
     }

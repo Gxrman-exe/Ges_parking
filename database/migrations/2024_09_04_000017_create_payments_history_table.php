@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('payments_history', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_payment')->constrained('payments');
+            $table->foreignId('payment_id')->constrained('payments');
             $table->decimal('mount_pay', 10, 2);
             $table->string('plate'); 
             $table->enum('payment_status', ['pending', 'processed', 'canceled']);

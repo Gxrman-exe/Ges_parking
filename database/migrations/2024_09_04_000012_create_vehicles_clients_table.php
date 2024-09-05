@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('payments_methods', function (Blueprint $table) {
-            $table->id();
-            $table->string('name', 30);
-            $table->text('details', 200)->nullable();
+        Schema::create('vehicle_clients', function (Blueprint $table) {
+            // $table->foreignId('vehicle_id')->constrained('vehicles');
+            // $table->foreignId('client_id')->nullable()->constrained('clients');
             $table->timestamps();
         });
     }
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payments_methods');
+        Schema::dropIfExists('vehicles_clients');
     }
 };

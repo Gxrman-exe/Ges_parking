@@ -14,16 +14,16 @@ return new class extends Migration
         Schema::create('locals', function (Blueprint $table) {
             $table->id();
             $table->foreignId('city_id')->constrained('cities');
-            $table->string('local_name');
-            $table->string('nit');
-            $table->string('direction');
+            $table->string('local_name', 50);
+            $table->string('nit', 20);
+            $table->string('direction', 50);
             $table->boolean('active')->default(1);
             $table->boolean('iva_enabled')->default(0);
             $table->decimal('iva_percentage', 5, 2)->nullable();
             $table->string('local_code')->unique();
             $table->decimal('rate_time', 8, 2)->nullable();
-            $table->string('license_type');
-            $table->string('license')->unique();
+            $table->string('license_type', 40);
+            $table->string('license', 30)->unique();
             $table->decimal('rate_value', 8, 2)->nullable();
             $table->integer('max_output_time')->nullable();
             $table->integer('available_spaces')->nullable();
