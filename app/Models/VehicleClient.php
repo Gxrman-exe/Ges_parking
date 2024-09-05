@@ -26,7 +26,8 @@ class VehicleClient extends Model
     public function vehicle()
     {
         return $this->morphMany(Vehicle::class, 'id', 'vehicle_id');
-    }public function client()
+    }
+    public function client()
     {
         return $this->morphMany(Client::class, 'id', 'client_id');
     }
