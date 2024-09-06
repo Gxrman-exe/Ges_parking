@@ -18,7 +18,6 @@ class RateTypeFactory extends Factory
     {
         return [
             'name' => $this->faker->word,
-            'period_days' => $this->faker->numberBetween(1, 365),
         ];
     }
 }

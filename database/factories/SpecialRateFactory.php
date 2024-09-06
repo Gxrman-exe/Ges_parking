@@ -22,6 +22,7 @@ class SpecialRateFactory extends Factory
             'rate_type_id' => $RateTypeId,
             'discount' => $this->faker->randomFloat(2, 0, 100),
             'comment' => $this->faker->text,
+            'amount' => $this->faker->numberBetween(1, 60),
         ];
     }
 }

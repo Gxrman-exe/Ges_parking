@@ -16,7 +16,6 @@ class RateType extends Model
      */
     protected $fillable = [
         'name',
-        'period_days',
     ];
     protected $casts = [
         'created_at' => 'datetime',

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('special_rates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('rate_type_id')->constrained('rate_types'); // Asumiendo que la tabla relacionada se llama 'rate_types'
+            $table->foreignId('rate_type_id')->constrained('rate_types');
             $table->decimal('discount', 5, 2);
             $table->text('comment', 250)->nullable();
+            $table->integer('amount');
             $table->timestamps();
         });
     }

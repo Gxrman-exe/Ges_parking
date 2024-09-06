@@ -18,6 +18,7 @@ class SpecialRate extends Model
         'rate_type_id',
         'discount',
         'comment',
+        'amount',
     ];
 
     protected $casts = [
