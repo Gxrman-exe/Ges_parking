@@ -20,13 +20,13 @@ return new class extends Migration
             $table->boolean('active')->default(1);
             $table->boolean('iva_enabled')->default(0);
             $table->decimal('iva_percentage', 5, 2)->nullable();
-            $table->string('local_code')->unique();
+            $table->string('local_code', 50)->unique();
             $table->decimal('rate_time', 8, 2)->nullable();
             $table->string('license_type', 40);
             $table->string('license', 30);
             $table->decimal('rate_value', 8, 2)->nullable();
             $table->integer('max_output_time')->nullable();
-            $table->integer('available_spaces')->nullable();
+            $table->integer('available_spaces', 4)->nullable();
             $table->timestamps();
         });
 
