@@ -13,7 +13,7 @@ class ReadCountryController extends Controller
         $showCountry = Country::all(); 
         if ($showCountry->isEmpty()) {
             $data = [
-                'message' => 'No hay paises registrados',
+                'message' => 'There are no registered countries!',
                 'status' => 404,
             ];
             return response()->json($data, 200);
