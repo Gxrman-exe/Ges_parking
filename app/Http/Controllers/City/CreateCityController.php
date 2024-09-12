@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Country;
+namespace App\Http\Controllers\City;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\City;
 
-class CreateCountryController extends Controller
+class CreateCityController extends Controller
 {
-    public function store(Request $request)
+    public function store(Request $request) 
     {
         $validator = Validator::make($request->all(), [
-            'country_name' => 'required|string|max:70',
-            'country_code' => 'required|string|max:3',
+            'departament_id' => 'required|exists:departaments,id',
+            'city_name' => 'required|string|max:50',
         ]);
 
         if ($validator->fails()) {
@@ -23,24 +23,22 @@ class CreateCountryController extends Controller
                 'status' => 400,
             ];
             return response()->json($data, 400);
-        }
-
-        $createCountry = Country::create([
-            'country_name' => $request->country_name,
-            'country_code' => $request->country_code,
+        };
+        $newCity = City::create([
+            'departament_id' => $request->departament_id,
+            'city_name' => $request->city_name,
         ]);
-        if (!$createCountry) {
+        if (!$newCity) {
             $data =[
-                'message'  => 'Error creating a new country',
+                'message'  => 'Error creating a new City!',
                 'status' => 500,
             ];
             return response()->json($data, 500);
-        }
-
+        };
         $data = [
-            'country' => $createCountry,
+            'city' => $newCity,
             '201' => 201,
         ];
         return response()->json($data, 201);
     }
-};
+}
