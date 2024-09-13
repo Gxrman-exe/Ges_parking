@@ -51,3 +51,5 @@ Route::get('/search-client/{id}', [SearchClientController::class, 'show']);
 Route::post('/create-client', [CreateClientController::class, 'store']);
 Route::put('/update-client/{id}', [UpdateClientController::class, 'update']);
 Route::delete('/remove-client/{id}', [DeleteClientController::class, 'destroy']);
+
+// The actions performed are Create and list data from the vehicle table
