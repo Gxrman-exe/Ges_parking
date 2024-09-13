@@ -36,6 +36,6 @@ Route::get('/list-locals', [ReadLocalController::class, 'index']);
 Route::post('/create-local', [CreateLocalController::class, 'store']);
 Route::delete('/remove-locals/{id}', [DeleteLocalController::class, 'destroy']);
 Route::put('/update-locals/{id}', [UpdateLocalController::class, 'update']);
-Route::patch('/update-partial-locals/{id}', [UpdatePartialLocalController::class, 'updatePartial']);
+Route::patch('/patch-update-locals/{id}', [UpdatePartialLocalController::class, 'patchUpdate']);
 // Search for a specific location
 Route::get('/search-locals/{id}', [SpecificLocalController::class, 'show']);
