@@ -37,6 +37,22 @@ class CreateDepartamentController extends Controller
 
         // Procesar cada entrada en el array de datos
         foreach ($data as $departamentData) {
+            // Verificar si ya existe un departamento con el mismo country_id y nombre o código
+            $existingDepartament = Departament::where('country_id', $departamentData['country_id'])
+                ->where(function($query) use ($departamentData) {
+                    $query->where('departament_name', $departamentData['departament_name'])
+                          ->orWhere('departament_code', $departamentData['departament_code']);
+                })
+                ->first();
+
+            if ($existingDepartament) {
+                return response()->json([
+                    'message' => 'Departament already exists with the same name or code in this country: ' . $departamentData['departament_name'],
+                    'status' => 409, // Conflict status
+                ], 409);
+            }
+
+            // Crear un nuevo departamento
             $newDepartament = Departament::create([
                 'country_id' => $departamentData['country_id'],
                 'departament_name' => $departamentData['departament_name'],

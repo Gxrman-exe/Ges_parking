@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('license', 30);
             $table->decimal('rate_value', 8, 2)->nullable();
             $table->integer('max_output_time')->nullable();
-            $table->integer('available_spaces')->nullable(); // Sin AUTO_INCREMENT ni PRIMARY KEY
+            $table->integer('available_spaces')->nullable();
             $table->timestamps();
         });
 

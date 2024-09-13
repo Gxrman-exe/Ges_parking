@@ -36,6 +36,19 @@ class CreateCountryController extends Controller
 
         // Process each entry in the data array
         foreach ($data as $countryData) {
+            // Check if the country with the same name or code already exists
+            $existingCountry = Country::where('country_name', $countryData['country_name'])
+                ->orWhere('country_code', $countryData['country_code'])
+                ->first();
+
+            if ($existingCountry) {
+                return response()->json([
+                    'message' => 'Country already exists: ' . $countryData['country_name'] . ' or ' . $countryData['country_code'],
+                    'status' => 409, // Conflict status
+                ], 409);
+            }
+
+            // Create a new country if it doesn't exist
             $newCountry = Country::create([
                 'country_name' => $countryData['country_name'],
                 'country_code' => $countryData['country_code'],
@@ -58,3 +71,4 @@ class CreateCountryController extends Controller
         ], 201);
     }
 }
+
