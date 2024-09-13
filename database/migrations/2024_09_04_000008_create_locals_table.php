@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locals', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Esta columna será AUTO_INCREMENT y PRIMARY KEY
             $table->foreignId('city_id')->constrained('cities');
             $table->string('local_name', 50);
             $table->string('nit', 20);
