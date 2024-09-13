@@ -3,7 +3,10 @@
 use App\Http\Controllers\City\CreateCityController;
 use App\Http\Controllers\City\ReadCityController;
 use App\Http\Controllers\Client\CreateClientController;
+use App\Http\Controllers\Client\DeleteClientController;
 use App\Http\Controllers\Client\ReadClientController;
+use App\Http\Controllers\Client\SearchClientController;
+use App\Http\Controllers\Client\UpdateClientController;
 use App\Http\Controllers\Country\CreateCountryController;
 use App\Http\Controllers\Country\ReadCountryController;
 use App\Http\Controllers\Departament\CreateDepartamentController;
@@ -44,4 +47,7 @@ Route::get('/search-locals/{id}', [SpecificLocalController::class, 'show']);
 
 // The actions performed are Create and list data from the local table
 Route::get('/list-clients', [ReadClientController::class, 'index']);
+Route::get('/search-client/{id}', [SearchClientController::class, 'show']);
 Route::post('/create-client', [CreateClientController::class, 'store']);
+Route::put('/update-client/{id}', [UpdateClientController::class, 'update']);
+Route::delete('/remove-client/{id}', [DeleteClientController::class, 'destroy']);
