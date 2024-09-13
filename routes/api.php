@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\City\CreateCityController;
 use App\Http\Controllers\City\ReadCityController;
+use App\Http\Controllers\Client\CreateClientController;
+use App\Http\Controllers\Client\ReadClientController;
 use App\Http\Controllers\Country\CreateCountryController;
 use App\Http\Controllers\Country\ReadCountryController;
 use App\Http\Controllers\Departament\CreateDepartamentController;
@@ -39,3 +41,7 @@ Route::put('/update-locals/{id}', [UpdateLocalController::class, 'update']);
 Route::patch('/patch-update-locals/{id}', [UpdatePartialLocalController::class, 'patchUpdate']);
 // Search for a specific location
 Route::get('/search-locals/{id}', [SpecificLocalController::class, 'show']);
+
+// The actions performed are Create and list data from the local table
+Route::get('/list-clients', [ReadClientController::class, 'index']);
+Route::post('/create-client', [CreateClientController::class, 'store']);

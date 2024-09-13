@@ -13,7 +13,7 @@ class CreateCityController extends Controller
     {
         $data = $request->all();
 
-        // If a single object is sent, we convert it to an array
+        // If a single object is sent, convert it to an array
         if (isset($data['departament_id']) && isset($data['city_name'])) {
             $data = [$data];
         }
@@ -36,6 +36,19 @@ class CreateCityController extends Controller
 
         // Process each entry in the data array
         foreach ($data as $cityData) {
+            // Check if the city already exists with the same departament_id and city_name
+            $existingCity = City::where('departament_id', $cityData['departament_id'])
+                                ->where('city_name', $cityData['city_name'])
+                                ->first();
+
+            if ($existingCity) {
+                return response()->json([
+                    'message' => 'City already exists in the same department with the name: ' . $cityData['city_name'],
+                    'status' => 409, // Conflict status
+                ], 409);
+            }
+
+            // Create a new city
             $newCity = City::create([
                 'departament_id' => $cityData['departament_id'],
                 'city_name' => $cityData['city_name'],

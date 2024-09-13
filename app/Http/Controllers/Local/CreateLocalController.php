@@ -13,12 +13,12 @@ class CreateLocalController extends Controller
     {
         $data = $request->all();
 
-        // If a single record is provided, convert it to an array
+        // Si se envía un solo objeto, lo convertimos en un array
         if (isset($data['city_id']) && isset($data['local_name']) && isset($data['nit'])) {
             $data = [$data];
         }
 
-        // Validation rules to handle both an array of records or a single record
+        // Reglas de validación para manejar tanto un array como un solo objeto
         $validator = Validator::make($data, [
             '*.city_id' => 'required|exists:cities,id',
             '*.local_name' => 'required|string|max:50',
@@ -36,7 +36,7 @@ class CreateLocalController extends Controller
             '*.available_spaces' => 'nullable|integer|min:0',
         ]);
 
-        // Return validation errors if any
+        // Retornar errores de validación si los hay
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Error in data validation',
@@ -47,8 +47,24 @@ class CreateLocalController extends Controller
 
         $locals = [];
 
-        // Process each record in the array of data
+        // Procesar cada registro en el array de datos
         foreach ($data as $localData) {
+            // Verificar si ya existe un local con el mismo city_id, local_name o NIT
+            $existingLocal = Local::where('city_id', $localData['city_id'])
+                ->where(function ($query) use ($localData) {
+                    $query->where('local_name', $localData['local_name'])
+                          ->orWhere('nit', $localData['nit']);
+                })
+                ->first();
+
+            if ($existingLocal) {
+                return response()->json([
+                    'message' => 'Local already exists with the same name or NIT in this city: ' . $localData['local_name'],
+                    'status' => 409, // Conflict status
+                ], 409);
+            }
+
+            // Crear un nuevo local
             $newLocal = Local::create([
                 'city_id' => $localData['city_id'],
                 'local_name' => $localData['local_name'],
@@ -66,7 +82,7 @@ class CreateLocalController extends Controller
                 'available_spaces' => $localData['available_spaces'],
             ]);
 
-            // Return an error if a record could not be created
+            // Retornar un error si no se pudo crear el local
             if (!$newLocal) {
                 return response()->json([
                     'message' => 'Error creating a new Local',
@@ -77,8 +93,9 @@ class CreateLocalController extends Controller
             $locals[] = $newLocal;
         }
 
-        // Return a successful response with the created records
+        // Retornar una respuesta exitosa con los registros creados
         return response()->json([
+            'message' => 'Locals created successfully',
             'locals' => $locals,
             'status' => 201,
         ], 201);
