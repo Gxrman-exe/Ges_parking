@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('locals', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Esta columna será AUTO_INCREMENT y PRIMARY KEY
             $table->foreignId('city_id')->constrained('cities');
             $table->string('local_name', 50);
             $table->string('nit', 20);
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('license', 30);
             $table->decimal('rate_value', 8, 2)->nullable();
             $table->integer('max_output_time')->nullable();
-            $table->integer('available_spaces', 4)->nullable();
+            $table->integer('available_spaces')->nullable(); // Sin AUTO_INCREMENT ni PRIMARY KEY
             $table->timestamps();
         });
 
