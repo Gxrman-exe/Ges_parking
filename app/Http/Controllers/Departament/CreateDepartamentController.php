@@ -9,39 +9,54 @@ use Illuminate\Support\Facades\Validator;
 
 class CreateDepartamentController extends Controller
 {
-    public function store (Request $request)
+    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'country_id' => 'required|exists:countries,id',
-            'departament_name' => 'required|string|max:70',
-            'departament_code' => 'required|string|max:50',
+        $data = $request->all();
+
+        // Si se envía un solo objeto, lo convertimos en un array
+        if (isset($data['country_id']) && isset($data['departament_name']) && isset($data['departament_code'])) {
+            $data = [$data];
+        }
+
+        // Validación para manejar tanto un array como un solo objeto
+        $validator = Validator::make($data, [
+            '*.country_id' => 'required|exists:countries,id',
+            '*.departament_name' => 'required|string|max:70',
+            '*.departament_code' => 'required|string|max:50',
         ]);
 
         if ($validator->fails()) {
-            $data = [
+            return response()->json([
                 'message' => 'Error in data validation',
                 'errors' => $validator->errors(),
                 'status' => 400,
-            ];
-            return response()->json($data, 400);
+            ], 400);
         }
 
-        $createDepartament = Departament::create([
-            'country_id' => $request->country_id,
-            'departament_name' => $request->departament_name,
-            'departament_code' => $request->departament_code,
-        ]);
-        if (!$createDepartament) {
-            $data =[
-                'message'  => 'Error creating a new Departament',
-                'status' => 500,
-            ];
-            return response()->json($data, 500);
-        };
-        $data = [
-            'departament' => $createDepartament,
-            '201' => 201,
-        ];
-        return response()->json($data, 201);
+        $departaments = [];
+
+        // Procesar cada entrada en el array de datos
+        foreach ($data as $departamentData) {
+            $newDepartament = Departament::create([
+                'country_id' => $departamentData['country_id'],
+                'departament_name' => $departamentData['departament_name'],
+                'departament_code' => $departamentData['departament_code'],
+            ]);
+
+            if (!$newDepartament) {
+                return response()->json([
+                    'message' => 'Error creating a new Departament',
+                    'status' => 500,
+                ], 500);
+            }
+
+            $departaments[] = $newDepartament;
+        }
+
+        return response()->json([
+            'message' => 'Departaments created successfully',
+            'departaments' => $departaments,
+            'status' => 201,
+        ], 201);
     }
-};
+}

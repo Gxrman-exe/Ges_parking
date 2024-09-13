@@ -9,36 +9,52 @@ use App\Models\City;
 
 class CreateCityController extends Controller
 {
-    public function store(Request $request) 
+    public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'departament_id' => 'required|exists:departaments,id',
-            'city_name' => 'required|string|max:50',
+        $data = $request->all();
+
+        // If a single object is sent, we convert it to an array
+        if (isset($data['departament_id']) && isset($data['city_name'])) {
+            $data = [$data];
+        }
+
+        // Validation for handling both an array and a single object
+        $validator = Validator::make($data, [
+            '*.departament_id' => 'required|exists:departaments,id',
+            '*.city_name' => 'required|string|max:50',
         ]);
 
         if ($validator->fails()) {
-            $data = [
+            return response()->json([
                 'message' => 'Error in data validation',
                 'errors' => $validator->errors(),
                 'status' => 400,
-            ];
-            return response()->json($data, 400);
-        };
-        $newCity = City::create([
-            'departament_id' => $request->departament_id,
-            'city_name' => $request->city_name,
-        ]);
-        if (!$newCity) {
-            $data =[
-                'message'  => 'Error creating a new City!',
-                'status' => 500,
-            ];
-            return response()->json($data, 500);
-        };
-        $data = [
-            'city' => $newCity,
-            '201' => 201,
-        ];
-        return response()->json($data, 201);
+            ], 400);
+        }
+
+        $cities = [];
+
+        // Process each entry in the data array
+        foreach ($data as $cityData) {
+            $newCity = City::create([
+                'departament_id' => $cityData['departament_id'],
+                'city_name' => $cityData['city_name'],
+            ]);
+
+            if (!$newCity) {
+                return response()->json([
+                    'message' => 'Error creating a new City!',
+                    'status' => 500,
+                ], 500);
+            }
+
+            $cities[] = $newCity;
+        }
+
+        return response()->json([
+            'message' => 'Cities created successfully',
+            'cities' => $cities,
+            'status' => 201,
+        ], 201);
     }
 }
