@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->foreignId('vehicle_id')->constrained('vehicles');
             $table->string('user_code', 20)->nullable();
-            $table->boolean('have_permission', );
+            $table->boolean('have_permission')->true;
             $table->string('action_performed');
             $table->date('date');
             $table->string('module_code', 20)->nullable();

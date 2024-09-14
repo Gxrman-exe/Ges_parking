@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('additional_value_locker', 8, 2)->nullable();
             $table->boolean('helmet_use'); 
             $table->decimal('additional_value_case', 8, 2)->nullable();
-            $table->string('vehicle_status');
+            $table->string('vehicle_status',20);
             $table->timestamps();
         });
     }

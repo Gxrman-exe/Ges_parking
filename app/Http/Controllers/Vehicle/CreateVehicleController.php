@@ -1,25 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Client;
+namespace App\Http\Controllers\Vehicle;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CreateClientController extends Controller
+class CreateVehicleController extends Controller
 {
     public function store(Request $request)
     {
-        // Validar los datos de entrada
         $validator = Validator::make($request->all(), [
-            'names' => 'required|string|max:50',
-            'surnames' => 'required|string|max:50',
-            'document_type' => 'required|string|max:50',
-            'document' => 'required|string|max:11',
-            'e_mail' => 'required|string|email|max:70',
-            'phone_number' => 'required|string|max:20',
-            'direction' => 'required|string|max:100',
+            'local_id' => 'required|exists:locals,id',
+            'client_id' => 'required|exists:clients,id',
+            'plate' => 'required|string|max:6',
+            'vehicle_type' => 'required|string|max:30',
+            'locker_use' => 'required|boolean',
+            'additional_value_locker' => 'nullable|numeric|between:0,999999.99',
+            'helmet_use' => 'required|boolean',
+            'additional_value_case' => 'nullable|numeric|between:0,999999.99',
+            'vehicle_status' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -30,9 +31,9 @@ class CreateClientController extends Controller
                 'status' => 400
             ], 400);
         }
-
-        // Crear un nuevo cliente
-        $client = Client::create([
+        $vehicle = Vehicle::create([
+            'local_id' => $request->local_id,
+            'client_id' => $request->client_id,
             'names' => $request->names,
             'surnames' => $request->surnames,
             'document_type' => $request->document_type,
@@ -42,17 +43,17 @@ class CreateClientController extends Controller
             'direction' => $request->direction,
         ]);
 
-        if (!$client) {
-            
+        if(!$vehicle) {
             return response()->json([
-                'message' => 'Error creating a client',
+                'message' => 'Error creating a vehicle!!',
                 'status' => 500
-            ], 500);
+            ]);
         }
 
         return response()->json([
-            'client' => $client,
+            'vehicle' => $vehicle,
             'status' => 201
         ], 201);
+
     }
 }

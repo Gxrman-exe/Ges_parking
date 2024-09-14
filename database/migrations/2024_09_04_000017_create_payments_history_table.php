@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('payment_id')->constrained('payments');
             $table->decimal('mount_pay', 10, 2);
-            $table->string('plate'); 
+            $table->string('plate', 6); 
             $table->string('payment_status', 20);
             $table->date('registration_date');
             $table->timestamps();
