@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('local_name', 50);
             $table->string('nit', 20);
             $table->string('direction', 70);
-            $table->boolean('active')->default(1);
-            $table->boolean('iva_enabled')->default(0);
+            $table->boolean('active')->true;
+            $table->boolean('iva_enabled')->true;
             $table->decimal('iva_percentage', 5, 2)->nullable();
-            $table->string('local_code', 50)->unique();
+            $table->string('local_code', 30)->unique();
             $table->decimal('rate_time', 8, 2)->nullable();
-            $table->string('license_type', 40);
+            $table->string('license_type', 30);
             $table->string('license', 30);
             $table->decimal('rate_value', 8, 2)->nullable();
             $table->integer('max_output_time')->nullable();

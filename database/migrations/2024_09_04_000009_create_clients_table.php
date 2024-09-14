@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('names', 50);
             $table->string('surnames', 50);
-            $table->string('document_type', 50);
+            $table->string('document_type', 30);
             $table->string('document', 11)->unique();
             $table->string('e_mail', 70)->unique();
             $table->string('phone_number', 20)->nullable();

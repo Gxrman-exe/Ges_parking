@@ -17,6 +17,8 @@ use App\Http\Controllers\Local\ReadLocalController;
 use App\Http\Controllers\Local\SpecificLocalController;
 use App\Http\Controllers\Local\UpdateLocalController;
 use App\Http\Controllers\Local\UpdatePartialLocalController;
+use App\Http\Controllers\Vehicle\CreateVehicleController;
+use App\Http\Controllers\Vehicle\ReadVehicleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,3 +55,6 @@ Route::put('/update-client/{id}', [UpdateClientController::class, 'update']);
 Route::delete('/remove-client/{id}', [DeleteClientController::class, 'destroy']);
 
 // The actions performed are Create and list data from the vehicle table
+Route::get('/list-vehicles', [ReadVehicleController::class, 'index']);
+Route::post('/create-vechicle', [CreateVehicleController::class, 'store']);
+
